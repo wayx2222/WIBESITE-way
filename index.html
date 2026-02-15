@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AW Furniture Jepara</title>
+    <title>AW Nirwana Furniture Jepara</title>
     
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* --- 1. VARIABEL WARNA --- */
+        /* --- 1. VARIABEL WARNA & BACKGROUND --- */
         :root {
             --bg-body: #fdfaf6;
             --bg-card: #ffffff;
@@ -19,6 +19,15 @@
             --gold-dark: #b08d45;
             --shadow: 0 4px 20px rgba(0,0,0,0.08);
             --radius: 20px;
+            
+            /* Variabel Header */
+            --header-bg: #fdfaf6; 
+            --header-text: #1a1a1a;
+            --header-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            
+            /* Variabel Background */
+            --bg-section-1: url('https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80');
+            --bg-section-2: url('https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80');
         }
 
         [data-theme="dark"] {
@@ -27,209 +36,171 @@
             --text-main: #f1f1f1;
             --text-muted: #aaaaaa;
             --shadow: 0 4px 20px rgba(0,0,0,0.4);
+            
+            --header-bg: #2a2a2a; 
+            --header-text: #f1f1f1; 
+            --header-shadow: 0 2px 10px rgba(0,0,0,0.3);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', sans-serif;
-            transition: background-color 0.5s ease, color 0.3s ease;
-        }
-
-        body {
-            background-color: var(--bg-body);
-            color: var(--text-main);
-            overflow: hidden;
-            height: 100vh;
-            width: 100vw;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; transition: background-color 0.5s ease, color 0.3s ease, border-color 0.3s ease; }
+        body { background-color: var(--bg-body); color: var(--text-main); overflow: hidden; height: 100vh; width: 100vw; overscroll-behavior: none; }
 
         /* --- 2. HEADER --- */
-        header {
-            position: fixed;
-            top: 0; left: 0; width: 100%;
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 10px 5%; /* Padding sedikit disesuaikan */
-            z-index: 1000;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, transparent 100%); 
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            flex-shrink: 0; 
-            max-width: 80%; 
-        }
-
-        /* Styling Logo Gambar */
-        .logo-img {
-            max-height: 80px; /* Ukuran diperbesar agar tulisan di logo terbaca */
-            width: auto;      
-            max-width: 100%;  
-            display: block;
-            object-fit: contain; 
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5)); 
-        }
-
-        #theme-toggle {
-            background: rgba(255,255,255,0.2); border: 2px solid white; color: white;
-            width: 40px; height: 40px; border-radius: 50%; cursor: pointer; backdrop-filter: blur(5px);
-            flex-shrink: 0;
-        }
+        header { position: fixed; top: 0; left: 0; width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 10px 25px; z-index: 1000; background-color: var(--header-bg); box-shadow: var(--header-shadow); }
+        .header-controls { display: flex; gap: 15px; align-items: center; }
+        .logo { display: flex; align-items: center; flex-shrink: 0; max-width: 60%; }
+        .logo-img { max-height: 60px; width: auto; max-width: 100%; display: block; object-fit: contain; }
+        .icon-btn { background: transparent; border: 2px solid var(--header-text); color: var(--header-text); width: 40px; height: 40px; border-radius: 50%; cursor: pointer; flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: 0.3s; }
+        .icon-btn:hover { background: var(--header-text); color: var(--header-bg); }
+        .icon-btn.active { background: var(--gold-accent); border-color: var(--gold-accent); color: white; }
 
         /* --- 3. LAYOUT UTAMA --- */
-        .main-wrapper {
-            height: 100vh; width: 100%;
-            transition: transform 0.8s cubic-bezier(0.645, 0.045, 0.355, 1);
-        }
+        .main-wrapper { height: 100vh; width: 100%; transition: transform 0.8s cubic-bezier(0.645, 0.045, 0.355, 1); }
+        section { height: 100vh; width: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 100px 0 100px; overflow: hidden; position: relative; }
+        .section-content { width: 100%; max-width: 1200px; padding: 0 20px; text-align: center; }
 
-        section {
-            height: 100vh; width: 100%;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            padding: 80px 0 100px; overflow: hidden; position: relative;
-        }
-
-        .section-content {
-            width: 100%; max-width: 1200px; padding: 0 20px; text-align: center;
-        }
+        /* SECTION 3 FIX */
+        #section3 { justify-content: flex-start; padding-top: 110px; }
+        #section3 .section-content { height: 100%; display: flex; flex-direction: column; }
+        #section3 .product-grid { flex-grow: 1; max-height: none; margin-bottom: 20px; }
 
         /* --- SIDE INDICATOR --- */
-        .side-indicator {
-            position: fixed; right: 20px; top: 50%; transform: translateY(-50%);
-            display: flex; flex-direction: column; gap: 15px; z-index: 1000;
-        }
-        .dot {
-            width: 12px; height: 12px; background: rgba(150, 150, 150, 0.5);
-            border: 1px solid rgba(255,255,255,0.5); border-radius: 50%;
-            cursor: pointer; transition: 0.3s; position: relative;
-        }
-        .dot:hover::before {
-            content: attr(data-title); position: absolute; right: 25px; top: 50%; transform: translateY(-50%);
-            background: var(--text-main); color: var(--bg-body); padding: 4px 8px; border-radius: 4px;
-            font-size: 0.7rem; white-space: nowrap; opacity: 1;
-        }
-        .dot::before { opacity: 0; transition: 0.3s; pointer-events: none; }
+        .side-indicator { position: fixed; right: 20px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 15px; z-index: 1000; }
+        .dot { width: 12px; height: 12px; background: rgba(150, 150, 150, 0.5); border: 1px solid rgba(255,255,255,0.5); border-radius: 50%; cursor: pointer; transition: 0.3s; position: relative; }
+        .dot:hover::before { content: attr(data-title); position: absolute; right: 25px; top: 50%; transform: translateY(-50%); background: var(--text-main); color: var(--bg-body); padding: 4px 8px; border-radius: 4px; font-size: 0.7rem; white-space: nowrap; opacity: 1; }
         .dot.active { background: var(--gold-accent); transform: scale(1.4); border-color: var(--gold-accent); }
 
         /* --- PAGE 1: INTRO --- */
         #section1 { color: white; text-align: center; }
-        #section1::before {
-            content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: url('https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
-            z-index: -1; opacity: 0.6;
-        }
-        #section1::after {
-            content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.4); z-index: -1;
-        }
+        #section1::before { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: var(--bg-section-1); background-position: center; background-size: cover; background-repeat: no-repeat; z-index: -1; opacity: 0.6; transition: background-image 0.5s; }
+        #section1::after { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); z-index: -1; }
         .intro-box { max-width: 800px; margin: 0 auto; animation: fadeInUp 1s ease; }
         .intro-title { font-size: 3rem; font-weight: bold; margin-bottom: 20px; line-height: 1.2; font-family: 'Times New Roman', serif; }
-        .btn-explore {
-            padding: 12px 30px; background: var(--gold-accent); color: white; border: none;
-            border-radius: 50px; font-size: 1rem; cursor: pointer; transition: 0.3s;
-            text-transform: uppercase; letter-spacing: 1px;
-        }
+        .btn-explore { padding: 12px 30px; background: var(--gold-accent); color: white; border: none; border-radius: 50px; font-size: 1rem; cursor: pointer; transition: 0.3s; text-transform: uppercase; letter-spacing: 1px; text-decoration: none; display: inline-block; }
         .btn-explore:hover { background: white; color: var(--gold-accent); }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
         /* --- PAGE 2: 3D CAROUSEL --- */
-        #section2::before {
-            content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: url('https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
-            opacity: 0.15; z-index: -1; filter: grayscale(30%);
-        }
-        .carousel-stage {
-            position: relative; width: 100%; max-width: 900px; height: 450px; margin: 0 auto;
-            display: flex; justify-content: center; perspective: 1000px; cursor: grab; touch-action: pan-y;
-        }
+        #section2::before { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: var(--bg-section-2); background-position: center; background-size: cover; background-repeat: no-repeat; opacity: 0.15; z-index: -1; filter: grayscale(30%); transition: background-image 0.5s; }
+        .carousel-stage { position: relative; width: 100%; max-width: 900px; height: 450px; margin: 0 auto; display: flex; justify-content: center; perspective: 1000px; cursor: grab; touch-action: pan-y; }
         .carousel-stage:active { cursor: grabbing; }
-        .c-item {
-            position: absolute; top: 10%; width: 280px; height: 350px; background: var(--bg-card);
-            border-radius: var(--radius); box-shadow: var(--shadow); transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
-            overflow: hidden; left: 50%; transform-origin: center bottom; display: flex; flex-direction: column;
-            user-select: none;
-        }
+        .c-item { position: absolute; top: 10%; width: 280px; height: 350px; background: var(--bg-card); border-radius: var(--radius); box-shadow: var(--shadow); transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1); overflow: hidden; left: 50%; transform-origin: center bottom; display: flex; flex-direction: column; user-select: none; }
         .c-item img { width: 100%; height: 220px; object-fit: cover; pointer-events: none; }
         .c-info { padding: 15px; text-align: center; flex-grow: 1; display: flex; flex-direction: column; justify-content: center; }
         .c-info h3 { font-family: 'Times New Roman', serif; margin-bottom: 5px; font-size: 1.2rem; }
         .c-info p { font-size: 0.9rem; color: var(--text-muted); }
-        .c-item.active { transform: translateX(-50%) scale(1.1) translateY(-20px); z-index: 10; opacity: 1; box-shadow: 0 20px 50px rgba(0,0,0,0.2); border: 1px solid var(--gold-accent); }
-        .c-item.prev { transform: translateX(-130%) scale(0.85) translateY(20px); z-index: 5; opacity: 0.5; filter: blur(1px) grayscale(50%); cursor: pointer; }
-        .c-item.next { transform: translateX(30%) scale(0.85) translateY(20px); z-index: 5; opacity: 0.5; filter: blur(1px) grayscale(50%); cursor: pointer; }
+        .c-item.active { transform: translateX(-50%) scale(1.1) translateY(-20px); z-index: 20; opacity: 1; box-shadow: 0 20px 50px rgba(0,0,0,0.25); border: 1px solid var(--gold-accent); }
+        .c-item.prev { transform: translateX(-130%) scale(0.85) translateY(20px); z-index: 10; opacity: 0.6; filter: blur(1px) grayscale(30%); cursor: pointer; }
+        .c-item.next { transform: translateX(30%) scale(0.85) translateY(20px); z-index: 10; opacity: 0.6; filter: blur(1px) grayscale(30%); cursor: pointer; }
+        .c-item.prev-2 { transform: translateX(-200%) scale(0.7) translateY(40px); z-index: 5; opacity: 0.4; filter: blur(2px) grayscale(70%); cursor: pointer; }
+        .c-item.next-2 { transform: translateX(100%) scale(0.7) translateY(40px); z-index: 5; opacity: 0.4; filter: blur(2px) grayscale(70%); cursor: pointer; }
         .c-item.hidden { transform: translateX(-50%) scale(0.5) translateY(100px); opacity: 0; z-index: 0; pointer-events: none; }
 
+        /* --- PAGE 3: KATEGORI PRODUK --- */
+        .category-nav { display: flex; gap: 10px; overflow-x: auto; padding: 10px 0; margin-bottom: 15px; width: 100%; justify-content: flex-start; scrollbar-width: none; flex-shrink: 0; }
+        .category-nav::-webkit-scrollbar { display: none; }
+        .cat-btn { padding: 8px 20px; border-radius: 50px; border: 1px solid var(--text-muted); background: transparent; color: var(--text-muted); white-space: nowrap; cursor: pointer; transition: 0.3s; font-size: 0.9rem; }
+        .cat-btn.active, .cat-btn:hover { background: var(--gold-accent); color: white; border-color: var(--gold-accent); }
+        .product-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; width: 100%; overflow-y: auto; padding: 5px; }
+        @media (min-width: 768px) { .product-grid { grid-template-columns: repeat(4, 1fr); gap: 20px; } .category-nav { justify-content: center; } }
+        .prod-card { background: var(--bg-card); border-radius: 12px; overflow: hidden; box-shadow: var(--shadow); cursor: pointer; transition: transform 0.3s; position: relative; border: 1px solid rgba(0,0,0,0.05); display: flex; flex-direction: column; }
+        .prod-card:hover { transform: translateY(-5px); border-color: var(--gold-accent); }
+        .prod-card img { width: 100%; height: 140px; object-fit: cover; }
+        .prod-card-body { padding: 12px; text-align: left; flex-grow: 1; }
+        .prod-card h4 { font-size: 0.95rem; margin-bottom: 4px; color: var(--text-main); font-weight: 600; }
+        .prod-card span { font-size: 0.75rem; color: var(--gold-accent); text-transform: uppercase; letter-spacing: 0.5px; font-weight: bold; }
+        .prod-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); display: flex; justify-content: center; align-items: center; opacity: 0; transition: 0.3s; }
+        .prod-overlay i { color: white; font-size: 1.5rem; background: var(--gold-accent); padding: 10px; border-radius: 50%; }
+        .prod-card:hover .prod-overlay { opacity: 1; }
 
-        /* --- PAGE 3: GRID STATIS --- */
-        .static-grid-12 {
-            display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px;
-            width: 100%; height: 100%; overflow-y: auto; padding: 10px 5px; max-height: 60vh;
+        /* --- PAGE 4: LAYANAN JASA & CUSTOM --- */
+        .services-wrapper {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 15px;
+            width: 100%;
+            margin-bottom: 25px;
         }
-        @media (min-width: 768px) { .static-grid-12 { grid-template-columns: repeat(4, 1fr); gap: 20px; max-height: 70vh; } }
-        .menu-card {
-            background: var(--bg-card); border-radius: 12px; overflow: hidden; box-shadow: var(--shadow);
-            cursor: pointer; transition: transform 0.3s, border 0.3s; position: relative; display: flex; flex-direction: column; text-align: left; border: 1px solid transparent;
+        
+        .service-box {
+            background: var(--bg-card);
+            padding: 15px;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            text-align: center;
+            transition: 0.3s;
+            border: 1px solid rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100%;
         }
-        .menu-card:hover { transform: translateY(-5px); border-color: var(--gold-accent); }
-        .menu-card img { width: 100%; height: 100px; object-fit: cover; }
-        .menu-card-body { padding: 10px; flex-grow: 1; }
-        .menu-card h4 { font-size: 0.9rem; margin-bottom: 3px; color: var(--text-main); }
-        .menu-card small { font-size: 0.7rem; color: var(--gold-accent); text-transform: uppercase; font-weight: bold; }
-        .menu-overlay {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5);
-            display: flex; justify-content: center; align-items: center; opacity: 0; transition: 0.3s;
+        
+        .service-box:hover { transform: translateY(-5px); border-color: var(--gold-accent); }
+        
+        .service-icon {
+            width: 50px; height: 50px;
+            background: var(--bg-body);
+            border-radius: 50%;
+            display: flex; justify-content: center; align-items: center;
+            margin-bottom: 10px;
+            color: var(--gold-accent);
+            font-size: 1.2rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
         }
-        .menu-overlay i { color: white; font-size: 1.5rem; background: var(--gold-accent); padding: 10px; border-radius: 50%; }
-        .menu-card:hover .menu-overlay { opacity: 1; }
+        
+        .service-box h4 { font-size: 0.85rem; margin-bottom: 5px; font-weight: bold; }
+        .service-box p { font-size: 0.7rem; color: var(--text-muted); line-height: 1.3; }
 
-        /* --- MODAL DETAIL --- */
-        .detail-modal {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7);
-            z-index: 2100; display: none; justify-content: center; align-items: center; opacity: 0; transition: opacity 0.3s; backdrop-filter: blur(5px);
+        .portfolio-label {
+            text-align: center; width: 100%; margin-bottom: 15px;
+            font-size: 1.1rem; color: var(--gold-accent); font-weight: bold;
+            letter-spacing: 1px;
         }
-        .detail-modal.active { display: flex; opacity: 1; }
-        .detail-box {
-            background: var(--bg-card); width: 90%; max-width: 500px; border-radius: 20px; overflow: hidden;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5); transform: scale(0.8); transition: transform 0.3s; position: relative;
-        }
-        .detail-modal.active .detail-box { transform: scale(1); }
-        .detail-header { position: relative; height: 200px; }
-        .detail-header img { width: 100%; height: 100%; object-fit: cover; }
-        .detail-close {
-            position: absolute; top: 15px; right: 15px; background: white; color: black; border: none;
-            width: 35px; height: 35px; border-radius: 50%; font-weight: bold; cursor: pointer; box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-        }
-        .detail-body { padding: 25px; text-align: left; }
-        .detail-title { font-size: 1.5rem; color: var(--gold-accent); margin-bottom: 5px; }
-        .detail-list { margin-top: 15px; list-style: none; background: var(--bg-body); padding: 15px; border-radius: 10px; }
-        .detail-list li { padding: 5px 0; border-bottom: 1px dashed rgba(0,0,0,0.1); display: flex; align-items: center; gap: 10px; color: var(--text-muted); font-size: 0.9rem; }
-        .detail-list li:last-child { border-bottom: none; }
-        .detail-list li i { color: var(--gold-accent); }
 
-
-        /* --- PAGE 4 & 5 --- */
-        .horizontal-scroll-container {
-            display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 20px;
-            padding: 20px 5%; width: 100%; scrollbar-width: none;
+        /* --- CUSTOM GALLERY (GAMBAR SAJA) --- */
+        .portfolio-container {
+            display: flex; 
+            overflow-x: auto; 
+            scroll-snap-type: x mandatory; 
+            gap: 15px; 
+            padding: 10px 5%; 
+            width: 100%; 
+            scrollbar-width: none;
+            flex-grow: 1;
+            align-items: center; /* Vertikal center */
         }
+        .portfolio-container::-webkit-scrollbar { display: none; }
+
+        .portfolio-card {
+            flex: 0 0 220px; /* Ukuran kartu lebih lebar */
+            height: 160px;   /* Tinggi tetap */
+            background: var(--bg-card);
+            border-radius: 15px;
+            overflow: hidden;
+            scroll-snap-align: center;
+            box-shadow: var(--shadow);
+            position: relative;
+            transition: transform 0.3s;
+        }
+        .portfolio-card:hover { transform: scale(1.05); }
+        
+        .portfolio-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* --- PAGE 5 --- */
+        .horizontal-scroll-container { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 20px; padding: 10px 5%; width: 100%; scrollbar-width: none; }
         .horizontal-scroll-container::-webkit-scrollbar { display: none; }
-        .gallery-card { flex: 0 0 160px; background: var(--bg-card); border-radius: 15px; overflow: hidden; scroll-snap-align: start; box-shadow: var(--shadow); }
-        .gallery-card img { width: 100%; height: 120px; object-fit: cover; }
-        .gallery-info { padding: 10px; text-align: left; }
-        .gallery-title { font-size: 0.9rem; font-weight: bold; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .gallery-desc { font-size: 0.7rem; color: var(--text-muted); }
         .review-card { flex: 0 0 300px; background: var(--bg-card); padding: 20px; border-radius: var(--radius); scroll-snap-align: center; box-shadow: var(--shadow); text-align: left; border-left: 4px solid var(--gold-accent); }
         .stars { color: #FFD700; margin-bottom: 10px; }
         .footer-info { margin-top: 40px; background: var(--text-main); color: var(--bg-body); padding: 30px; border-radius: var(--radius) var(--radius) 0 0; width: 100%; text-align: left; position: relative; }
         .footer-logo { position: absolute; bottom: 20px; right: 20px; opacity: 0.3; font-size: 3rem; font-weight: bold; color: var(--gold-accent); }
 
         /* NAVIGASI BAWAH */
-        .bottom-nav {
-            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
-            background: rgba(255, 255, 255, 0.95); padding: 10px 25px; border-radius: 50px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15); display: flex; gap: 20px; z-index: 1000;
-            backdrop-filter: blur(10px); border: 1px solid rgba(0,0,0,0.05);
-        }
+        .bottom-nav { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: rgba(255, 255, 255, 0.95); padding: 10px 25px; border-radius: 50px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); display: flex; gap: 20px; z-index: 1000; backdrop-filter: blur(10px); border: 1px solid rgba(0,0,0,0.05); }
         [data-theme="dark"] .bottom-nav { background: rgba(30, 30, 30, 0.95); box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1); }
         .nav-item { display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; color: var(--text-muted); text-decoration: none; transition: 0.3s; position: relative; width: 40px; }
         .nav-item i, .nav-item svg { font-size: 1.5rem; width: 24px; height: 24px; margin-bottom: 2px; }
@@ -238,114 +209,206 @@
         .nav-item.ai-btn svg { filter: drop-shadow(0 0 5px rgba(66, 133, 244, 0.5)); animation: geminiPulse 3s infinite ease-in-out; }
         @keyframes geminiPulse { 0%, 100% { transform: scale(1); opacity: 0.8; } 50% { transform: scale(1.15); opacity: 1; } }
 
-        /* MODAL SEARCH */
-        .modal-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(5px); z-index: 2000;
-            display: none; justify-content: center; align-items: center; opacity: 0; transition: opacity 0.3s;
-        }
+        /* MODAL SEARCH & AI CHAT */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(5px); z-index: 2000; display: none; justify-content: center; align-items: center; opacity: 0; transition: opacity 0.3s; }
         .modal-overlay.active { display: flex; opacity: 1; }
-        .search-box { background: var(--bg-card); width: 90%; max-width: 400px; padding: 30px; border-radius: 20px; text-align: center; box-shadow: 0 10px 40px rgba(0,0,0,0.3); transform: scale(0.8); transition: transform 0.3s; }
+        .search-box { background: var(--bg-card); width: 90%; max-width: 450px; padding: 25px; border-radius: 20px; text-align: center; box-shadow: 0 10px 40px rgba(0,0,0,0.3); transform: scale(0.8); transition: transform 0.3s; position: relative; }
         .modal-overlay.active .search-box { transform: scale(1); }
-        .search-input { width: 100%; padding: 15px; border-radius: 10px; border: 2px solid var(--text-muted); margin: 20px 0; background: var(--bg-body); color: var(--text-main); font-size: 1rem; }
-        .btn-search { background: var(--text-main); color: var(--bg-body); border: none; padding: 10px 25px; border-radius: 50px; cursor: pointer; font-weight: bold; }
+        .search-input { width: 100%; padding: 15px; border-radius: 10px; border: 2px solid var(--text-muted); margin-bottom: 15px; background: var(--bg-body); color: var(--text-main); font-size: 1rem; }
+        .btn-search { background: var(--text-main); color: var(--bg-body); border: none; padding: 10px 25px; border-radius: 50px; cursor: pointer; font-weight: bold; transition: 0.3s; }
+        .btn-search:hover { background: var(--gold-accent); }
+        .ai-chat-area { background: rgba(0,0,0,0.03); border-radius: 15px; padding: 15px; margin-bottom: 20px; text-align: left; min-height: 80px; max-height: 250px; overflow-y: auto; border: 1px solid rgba(0,0,0,0.05); display: flex; flex-direction: column; gap: 10px; }
+        .ai-msg { display: flex; gap: 10px; align-items: flex-start; animation: fadeIn 0.3s; }
+        .ai-msg i { color: #4285F4; font-size: 1.2rem; margin-top: 3px; }
+        .ai-text { font-size: 0.95rem; color: var(--text-main); line-height: 1.5; }
+        .ai-text strong { color: var(--gold-accent); }
     </style>
 </head>
 <body>
 
     <header>
         <div class="logo">
-            <!-- LOGO UTAMA (GAMBAR SAJA) -->
-            <!-- Pastikan file gambar "LOGO - AW NIRWANA MEBEL.png" ada di folder yang sama -->
-            <img src="LOGO - AW NIRWANA MEBEL.png" alt="AW Nirwana Mebel" class="logo-img">
+            <img src="https://i.ibb.co/9kpTrtpd/LOGO-AW-NIRWANA-MEBEL.png" alt="AW Nirwana Mebel" class="logo-img">
         </div>
-        <button id="theme-toggle" onclick="toggleTheme()">
-            <i class="fas fa-moon"></i>
-        </button>
+        <div class="header-controls">
+            <button id="theme-toggle" class="icon-btn" onclick="toggleTheme()" title="Dark Mode"><i class="fas fa-moon"></i></button>
+        </div>
     </header>
 
     <div class="side-indicator">
         <div class="dot active" onclick="goToSection(0)" data-title="Intro"></div>
         <div class="dot" onclick="goToSection(1)" data-title="Produk Unggulan"></div>
-        <div class="dot" onclick="goToSection(2)" data-title="Pilihan Paket"></div>
-        <div class="dot" onclick="goToSection(3)" data-title="Galeri"></div>
+        <div class="dot" onclick="goToSection(2)" data-title="Galeri Produk"></div>
+        <div class="dot" onclick="goToSection(3)" data-title="Jasa & Custom"></div>
         <div class="dot" onclick="goToSection(4)" data-title="Info & Review"></div>
     </div>
 
     <div class="main-wrapper" id="mainWrapper">
-        
-        <!-- SECTION 1: Intro -->
+        <!-- Section 1: Intro -->
         <section id="section1">
             <div class="section-content">
                 <div class="intro-box">
                     <h2 class="intro-title">Mewujudkan<br>Hunian Impian</h2>
                     <p class="intro-text" style="font-size: 1.1rem; line-height: 1.6; margin-bottom: 30px; opacity: 0.9;">
-                        Selamat datang di AW Furniture Jepara. Kami berdedikasi menghadirkan kehangatan kayu jati asli ke dalam rumah Anda.
+                        Selamat datang di AW Nirwana Furniture Jepara. Kami berdedikasi menghadirkan kehangatan kayu jati asli ke dalam rumah Anda.
                     </p>
                     <button class="btn-explore" onclick="goToSection(1)">Lihat Koleksi Kami</button>
                 </div>
             </div>
         </section>
 
-        <!-- SECTION 2: Produk Unggulan -->
+        <!-- Section 2: Produk Unggulan -->
         <section id="section2">
             <div class="section-content">
                 <h2 style="color: var(--gold-accent); margin-bottom: 30px;">PRODUK UNGGULAN</h2>
-                <p style="color: var(--text-muted); margin-bottom: 20px; font-size: 0.9rem;">Geser untuk melihat (Swipe/Drag)</p>
+                <p style="color: var(--text-muted); margin-bottom: 20px; font-size: 0.9rem;">Geser untuk melihat (Swipe/Drag) atau Gunakan Panah Keyboard</p>
                 <div class="carousel-stage" id="carouselStage"></div>
             </div>
         </section>
 
-        <!-- SECTION 3: PAKET FURNITURE (GRID STATIS 12 MENU) -->
+        <!-- Section 3: GALERI PRODUK TERKATEGORI -->
         <section id="section3">
             <div class="section-content">
-                <h2 style="color: var(--gold-accent); margin-bottom: 5px;">PILIHAN PAKET</h2>
-                <p style="color: var(--text-muted); margin-bottom: 20px; font-size: 0.9rem;">Klik salah satu untuk melihat detail isi paket</p>
-                
-                <!-- Grid Container 4x3 -->
-                <div class="static-grid-12" id="packageGrid"></div>
+                <h2 style="color: var(--gold-accent); margin-bottom: 10px;">GALERI PRODUK</h2>
+                <p style="color: var(--text-muted); margin-bottom: 20px; font-size: 0.9rem;">Pilih kategori untuk melihat koleksi kami</p>
+                <div class="category-nav" id="categoryNav">
+                    <button class="cat-btn active" onclick="filterGallery('all')">Semua</button>
+                    <button class="cat-btn" onclick="filterGallery('kursi')">Kursi</button>
+                    <button class="cat-btn" onclick="filterGallery('meja')">Meja</button>
+                    <button class="cat-btn" onclick="filterGallery('sofa')">Sofa</button>
+                    <button class="cat-btn" onclick="filterGallery('buffet')">Buffet TV</button>
+                    <button class="cat-btn" onclick="filterGallery('nakas')">Nakas</button>
+                    <button class="cat-btn" onclick="filterGallery('almari')">Almari</button>
+                    <button class="cat-btn" onclick="filterGallery('dipan')">Dipan</button>
+                    <button class="cat-btn" onclick="filterGallery('kitchen')">Kitchen Set</button>
+                </div>
+                <div class="product-grid" id="galleryGrid"></div>
             </div>
         </section>
 
-        <!-- SECTION 4: Galeri -->
+        <!-- Section 4: JASA & SERVICE (UPDATED) -->
         <section id="section4">
-            <div style="text-align: center; margin-bottom: 20px;">
-                <h2 style="color: var(--gold-accent);">GALERI PRODUK</h2>
-                <p style="font-size: 0.9rem; color: var(--text-muted);">Koleksi lengkap kami (Geser <i class="fas fa-arrow-right"></i>)</p>
-            </div>
-            <div class="horizontal-scroll-container">
-                <div class="gallery-card"><img src="https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"><div class="gallery-info"><div class="gallery-title">Kursi Sudut</div><div class="gallery-desc">Kayu jati ukir.</div></div></div>
-                <div class="gallery-card"><img src="https://images.unsplash.com/photo-1533090481720-856c6e3c1fdc?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"><div class="gallery-info"><div class="gallery-title">Meja Rias</div><div class="gallery-desc">Lampu LED.</div></div></div>
-                <div class="gallery-card"><img src="https://images.unsplash.com/photo-1595428774223-ef52624120d2?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"><div class="gallery-info"><div class="gallery-title">Lemari 3 Pintu</div><div class="gallery-desc">Pintu sliding.</div></div></div>
-                <div class="gallery-card"><img src="https://images.unsplash.com/photo-1594620302200-9a762244a156?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"><div class="gallery-info"><div class="gallery-title">Rak Buku</div><div class="gallery-desc">Desain industrial.</div></div></div>
-                <div class="gallery-card"><img src="https://images.unsplash.com/photo-1505693416388-c03dc37c2658?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"><div class="gallery-info"><div class="gallery-title">Dipan Jati</div><div class="gallery-desc">King Size.</div></div></div>
+            <div class="section-content" style="display: flex; flex-direction: column; justify-content: flex-start; height: 100%; padding-top: 100px;">
+                <h2 style="color: var(--gold-accent); margin-bottom: 10px;">JASA & CUSTOM</h2>
+                <p style="color: var(--text-muted); margin-bottom: 20px; font-size: 0.9rem;">Kami melayani perbaikan dan pembuatan furniture custom</p>
+                
+                <!-- 1. Grid Layanan Utama -->
+                <div class="services-wrapper">
+                    <!-- Custom Furniture (Update Nama & Deskripsi) -->
+                    <div class="service-box">
+                        <div class="service-icon"><i class="fas fa-pencil-ruler"></i></div>
+                        <h4>Custom Furniture</h4>
+                        <p>Desain lemari, meja, kitchen set sesuai ukuran ruangan Anda.</p>
+                    </div>
+                    <!-- Service Jok -->
+                    <div class="service-box">
+                        <div class="service-icon"><i class="fas fa-couch"></i></div>
+                        <h4>Service Jok</h4>
+                        <p>Ganti kain sofa & kursi, tambah busa, perbaikan rangka.</p>
+                    </div>
+                    <!-- Furniture Marmer -->
+                    <div class="service-box">
+                        <div class="service-icon"><i class="fas fa-gem"></i></div>
+                        <h4>Marmer Custom</h4>
+                        <p>Meja makan & tamu kombinasi kaki besi/kayu & marmer.</p>
+                    </div>
+                    <!-- Kasur Busa -->
+                    <div class="service-box">
+                        <div class="service-icon"><i class="fas fa-bed"></i></div>
+                        <h4>Kasur Busa</h4>
+                        <p>Pesan kasur busa super awet ukuran custom.</p>
+                    </div>
+                    <!-- Finishing -->
+                    <div class="service-box">
+                        <div class="service-icon"><i class="fas fa-paint-roller"></i></div>
+                        <h4>Finishing Ulang</h4>
+                        <p>Cat ulang furniture lama jadi baru lagi (Melamine/Duco).</p>
+                    </div>
+                </div>
+
+                <!-- 2. Galeri Portofolio (GAMBAR SAJA - 5 ITEM - RATA TENGAH) -->
+                <div class="portfolio-label">HASIL PENGERJAAN KAMI</div>
+                <div class="portfolio-container">
+                    <!-- Gambar 1 -->
+                    <div class="portfolio-card">
+                        <img src="https://images.unsplash.com/photo-1556912172-45b7abe8b7e1?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Hasil Pengerjaan 1">
+                    </div>
+                    <!-- Gambar 2 -->
+                    <div class="portfolio-card">
+                        <img src="https://images.unsplash.com/photo-1550254478-ead40cc54513?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Hasil Pengerjaan 2">
+                    </div>
+                    <!-- Gambar 3 -->
+                    <div class="portfolio-card">
+                        <img src="https://images.unsplash.com/photo-1577140917170-285929fb55b7?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Hasil Pengerjaan 3">
+                    </div>
+                    <!-- Gambar 4 -->
+                    <div class="portfolio-card">
+                        <img src="https://images.unsplash.com/photo-1538688523628-71195310007d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Hasil Pengerjaan 4">
+                    </div>
+                    <!-- Gambar 5 (Baru) -->
+                    <div class="portfolio-card">
+                        <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4f9d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Hasil Pengerjaan 5">
+                    </div>
+                </div>
+
+                <!-- 3. CTA Button (LINK WHATSAPP) -->
+                <a href="https://wa.me/6281234567890?text=Halo%20AW%20Nirwana,%20saya%20mau%20konsultasi%20tentang%20jasa%20service%20atau%20custom%20furniture." target="_blank" class="btn-explore" style="margin-top: 0; font-size: 0.9rem;">
+                    <i class="fab fa-whatsapp"></i> Konsultasi via WhatsApp
+                </a>
             </div>
         </section>
 
-        <!-- SECTION 5: Footer -->
+        <!-- Section 5: Footer -->
         <section id="section5">
             <div class="section-content" style="display: flex; flex-direction: column; height: 100%; justify-content: space-between;">
                 <div style="flex-grow: 1; display: flex; flex-direction: column; justify-content: center;">
                     <h2 style="color: var(--gold-accent); margin-bottom: 20px;">APA KATA MEREKA?</h2>
                     <div class="horizontal-scroll-container">
+                        <!-- Review 1 -->
                         <div class="review-card">
                             <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                            <p style="font-style: italic;">"Barangnya bagus banget, kayunya kokoh."</p>
-                            <h4>Bpk. Hartono</h4><small>Jakarta</small>
+                            <p style="font-style: italic;">"Barangnya bagus banget, kayunya kokoh dan finishingnya halus. Pengiriman ke Jakarta aman sampai tujuan."</p>
+                            <h4>Bpk. Hartono</h4><small>Jakarta Selatan</small>
                         </div>
+                        <!-- Review 2 -->
+                        <div class="review-card">
+                            <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div>
+                            <p style="font-style: italic;">"Suka banget sama kitchen set-nya. Pas banget ukurannya dan harganya terjangkau dibanding toko lain."</p>
+                            <h4>Ibu Sarah</h4><small>Surabaya</small>
+                        </div>
+                        <!-- Review 3 (Baru) -->
                         <div class="review-card">
                             <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                            <p style="font-style: italic;">"Suka banget sama kitchen set-nya."</p>
-                            <h4>Ibu Sarah</h4><small>Surabaya</small>
+                            <p style="font-style: italic;">"Pesan meja makan custom marmer, hasilnya mewah banget. Pelayanan ramah dan responsif."</p>
+                            <h4>Mas Dimas</h4><small>Semarang</small>
+                        </div>
+                        <!-- Review 4 (Baru) -->
+                        <div class="review-card">
+                            <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                            <p style="font-style: italic;">"Awalnya ragu beli online, ternyata barang sampai mulus. Packing kayunya tebal dan aman."</p>
+                            <h4>Ibu Rina</h4><small>Bandung</small>
+                        </div>
+                        <!-- Review 5 (Baru) -->
+                        <div class="review-card">
+                            <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                            <p style="font-style: italic;">"Kursi terasnya cantik, anyamannya rapi. Cocok banget buat santai sore di rumah."</p>
+                            <h4>Mbak Putri</h4><small>Yogyakarta</small>
+                        </div>
+                        <!-- Review 6 (Baru) -->
+                        <div class="review-card">
+                            <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                            <p style="font-style: italic;">"Service sofa lama jadi seperti baru lagi. Busa empuk dan kainnya premium. Mantap!"</p>
+                            <h4>Pak Budi</h4><small>Tangerang</small>
                         </div>
                     </div>
                 </div>
                 <div class="footer-info">
                     <div style="max-width: 80%;">
                         <h3 style="color: var(--gold-accent); margin-bottom: 10px;">INFORMASI & LEGALITAS</h3>
-                        <p style="font-size: 0.9rem; margin-bottom: 5px;"><i class="fas fa-building"></i> <strong>CV. AW Furniture Jaya</strong></p>
+                        <p style="font-size: 0.9rem; margin-bottom: 5px;"><i class="fas fa-building"></i> <strong>CV. AW Nirwana Furniture</strong></p>
                         <p style="font-size: 0.9rem; margin-bottom: 5px;"><i class="fas fa-map-marker-alt"></i> Jepara, Jawa Tengah</p>
                         <br>
-                        <p style="font-size: 0.7rem; opacity: 0.7;">&copy; 2026 AW Furniture Jepara.</p>
+                        <p style="font-size: 0.7rem; opacity: 0.7;">&copy; 2026 AW Nirwana Furniture Jepara.</p>
                     </div>
                     <div class="footer-logo">AW</div>
                 </div>
@@ -353,148 +416,153 @@
         </section>
     </div>
 
-    <!-- NAVIGASI BAWAH -->
+    <!-- Navigasi Bawah -->
     <div class="bottom-nav">
         <a href="https://wa.me/6281234567890" target="_blank" class="nav-item" data-label="WhatsApp"><i class="fab fa-whatsapp" style="color: #25D366;"></i></a>
         <a href="https://instagram.com" target="_blank" class="nav-item" data-label="Instagram"><i class="fab fa-instagram" style="color: #E1306C;"></i></a>
         <a href="https://maps.google.com" target="_blank" class="nav-item" data-label="Lokasi"><i class="fas fa-map-marker-alt" style="color: #4285F4;"></i></a>
-        <div class="nav-item ai-btn" onclick="openSearch()" data-label="Gemini AI">
-            <svg viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 2L14.4 7.2L19.6 9.6L14.4 12L12 17.2L9.6 12L4.4 9.6L9.6 7.2L12 2Z" fill="#4285F4"/>
-            </svg>
-        </div>
+        <div class="nav-item ai-btn" onclick="openSearch()" data-label="Gemini AI"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L14.4 7.2L19.6 9.6L14.4 12L12 17.2L9.6 12L4.4 9.6L9.6 7.2L12 2Z" fill="#4285F4"/></svg></div>
         <div class="nav-item" onclick="goToSection(0)" data-label="Home"><i class="fas fa-home"></i></div>
     </div>
 
-    <!-- MODAL SEARCH -->
+    <!-- Modals -->
     <div id="searchModal" class="modal-overlay">
         <div class="search-box">
-            <h3 style="color: #4285F4;">Gemini Furniture finder</h3>
-            <input type="text" id="searchInput" class="search-input" placeholder="Cari...">
+            <h3 style="color: #4285F4; margin-bottom: 5px;"><i class="fas fa-sparkles"></i> AW Nirwana AI</h3>
+            <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 15px;">Tanya tentang kayu, furniture, atau tips perawatan...</p>
+            <div class="ai-chat-area" id="aiResultArea"><div class="ai-msg"><i class="fas fa-robot"></i><div class="ai-text">Halo! Saya asisten pintar AW Nirwana. Silakan tanya apa saja tentang furniture Jepara.</div></div></div>
+            <input type="text" id="searchInput" class="search-input" placeholder="Contoh: Meja makan jati..." onkeypress="handleEnter(event)">
             <div style="display: flex; gap: 10px; justify-content: center;">
-                <button class="btn-search" onclick="closeSearch()" style="background:transparent; color:var(--text-muted); border:1px solid var(--text-muted);">Batal</button>
-                <button class="btn-search" onclick="performSearch()">Tanya AI</button>
+                <button class="btn-search" onclick="closeSearch()" style="background:transparent; color:var(--text-muted); border:1px solid var(--text-muted);">Tutup</button>
+                <button class="btn-search" onclick="askAI()">Kirim <i class="fas fa-paper-plane"></i></button>
             </div>
         </div>
     </div>
 
-    <!-- MODAL DETAIL PAKET -->
     <div id="detailModal" class="detail-modal">
         <div class="detail-box">
-            <div class="detail-header">
-                <img id="detailImg" src="" alt="Detail Furniture">
-                <button class="detail-close" onclick="closeDetail()"><i class="fas fa-times"></i></button>
-            </div>
+            <div class="detail-header"><img id="detailImg" src="" alt="Detail Furniture"><button class="detail-close" onclick="closeDetail()"><i class="fas fa-times"></i></button></div>
             <div class="detail-body">
-                <h3 id="detailTitle" class="detail-title">Nama Paket</h3>
-                <p id="detailDesc" style="color: var(--text-muted); font-size: 0.9rem;">Deskripsi singkat paket.</p>
-                <h4 style="margin-top: 20px; font-size: 0.9rem; font-weight: bold;">ITEM YANG TERMASUK:</h4>
-                <ul id="detailList" class="detail-list"></ul>
-                <a href="https://wa.me/6281234567890" class="btn-explore" style="display: block; text-align: center; margin-top: 20px; text-decoration: none;">Pesan Paket Ini</a>
+                <h3 id="detailTitle" class="detail-title"></h3>
+                <span id="detailCat" style="background:var(--gold-accent); color:white; padding:2px 8px; border-radius:4px; font-size:0.7rem;"></span>
+                <p id="detailDesc" style="color: var(--text-muted); font-size: 0.9rem; margin-top:10px;"></p>
+                <a href="https://wa.me/6281234567890" class="btn-explore" style="display: block; text-align: center; margin-top: 20px; text-decoration: none;">Tanya Admin</a>
             </div>
         </div>
     </div>
 
     <script>
-        // --- DATA PAKET (12 ITEM) ---
-        const packages = [
-            { t: "Kitchen Set Modern", c: "Best Seller", i: "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80", 
-              items: ["Kabinet Atas (3m)", "Kabinet Bawah (3m)", "Rak Piring Stainless", "Top Table Granit", "Free Pemasangan"] },
-            { t: "Set Ruang Tamu", c: "Promo", i: "https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
-              items: ["Sofa 3 Seater", "Sofa 1 Seater (2 unit)", "Meja Tamu Kaca", "Meja Sudut", "Karpet Premium"] },
-            { t: "Set Meja Makan", c: "Jati Asli", i: "https://images.unsplash.com/photo-1617806118233-18e1de247200?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
-              items: ["Meja Makan (200x100cm)", "Kursi Makan (6 unit)", "Kaca Pelindung Meja", "Bantalan Kursi"] },
-            { t: "Set Kamar Tidur", c: "Minimalis", i: "https://images.unsplash.com/photo-1505693416388-c03dc37c2658?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
-              items: ["Dipan King Size", "Lemari Pakaian 3 Pintu", "Meja Rias + Cermin", "Nakas (2 unit)"] },
-            { t: "Set Teras Santai", c: "Outdoor", i: "https://images.unsplash.com/photo-1595246140625-573b715d11dc?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
-              items: ["Kursi Teras Rotan (2 unit)", "Meja Bundar Kecil", "Bantal Peluk Waterproof"] },
-            { t: "Set Ruang Kerja", c: "Office", i: "https://images.unsplash.com/photo-1593642632823-8f78536709c6?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
-              items: ["Meja Kerja L-Shape", "Kursi Kantor Ergonomis", "Rak Buku Dinding", "Laci Sorong"] },
-            { t: "Set Kamar Anak", c: "Kids", i: "https://images.unsplash.com/photo-1512918760530-772752699e9d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
-              items: ["Tempat Tidur Tingkat", "Meja Belajar Anak", "Lemari Pakaian Anak", "Rak Mainan"] },
-            { t: "Set Vanity", c: "Luxury", i: "https://images.unsplash.com/photo-1616486338812-3dadae4b4f9d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
-              items: ["Meja Rias Duco", "Cermin LED Touchscreen", "Stool Berbulu", "Organizer Akrilik"] },
-            { t: "Set Ruang Baca", c: "Library", i: "https://images.unsplash.com/photo-1594620302200-9a762244a156?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
-              items: ["Rak Buku Full Plafon", "Kursi Baca Wingchair", "Lampu Baca Standing", "Meja Samping"] },
-            { t: "Set Cafe / Resto", c: "Commercial", i: "https://images.unsplash.com/photo-1554118811-1e0d58224f24?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
-              items: ["Meja Cafe (4 unit)", "Kursi Cafe Besi (16 unit)", "Bar Stool (2 unit)", "Meja Kasir"] },
-            { t: "Set Lobby Hotel", c: "Premium", i: "https://images.unsplash.com/photo-1582037928769-181f2422677e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
-              items: ["Sofa Chesterfiled", "Meja Kopi Marmer", "Console Table", "Cermin Dekoratif Besar"] },
-            { t: "Set Taman", c: "Garden", i: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
-              items: ["Bangku Taman Besi Tempa", "Ayunan Kayu Jati", "Meja Payung", "Lampu Taman Solar"] }
+        // --- DATA PRODUK LENGKAP (BERDASARKAN KATEGORI) ---
+        const allProducts = [
+            // KURSI
+            { id: 1, t: "Kursi Makan Jati", cat: "kursi", type: "Makan", i: "https://images.unsplash.com/photo-1592078615290-033ee584e267?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" },
+            { id: 2, t: "Kursi Tamu Ukir", cat: "kursi", type: "Tamu", i: "https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" },
+            { id: 3, t: "Kursi Teras Rotan", cat: "kursi", type: "Teras", i: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" },
+            { id: 4, t: "Kursi Cafe Besi", cat: "kursi", type: "Cafe", i: "https://images.unsplash.com/photo-1506898667547-42e22a46e125?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" },
+            { id: 5, t: "Kursi Taman Panjang", cat: "kursi", type: "Taman", i: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" },
+
+            // MEJA
+            { id: 6, t: "Meja Tamu Kaca", cat: "meja", type: "Tamu", i: "https://images.unsplash.com/photo-1533090481720-856c6e3c1fdc?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" },
+            { id: 7, t: "Meja Kerja Kantor", cat: "meja", type: "Kerja", i: "https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" },
+            { id: 8, t: "Meja Rias Kartini", cat: "meja", type: "Rias", i: "https://images.unsplash.com/photo-1616486338812-3dadae4b4f9d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" },
+            { id: 9, t: "Meja Makan Trembesi", cat: "meja", type: "Makan", i: "https://images.unsplash.com/photo-1617806118233-18e1de247200?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" },
+            { id: 10, t: "Meja Cafe Bulat", cat: "meja", type: "Cafe", i: "https://images.unsplash.com/photo-1554118811-1e0d58224f24?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" },
+
+            // SOFA
+            { id: 11, t: "Sofa Chesterfield", cat: "sofa", type: "Kulit", i: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" },
+            { id: 12, t: "Sofa L-Shape", cat: "sofa", type: "Modern", i: "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" },
+
+            // LAINNYA
+            { id: 13, t: "Buffet TV Minimalis", cat: "buffet", type: "Retro", i: "https://images.unsplash.com/photo-1595428774223-ef52624120d2?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" },
+            { id: 14, t: "Nakas Bedside", cat: "nakas", type: "2 Laci", i: "https://images.unsplash.com/photo-1532323544230-7191fd510c59?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" },
+            { id: 15, t: "Almari Pakaian 3 Pintu", cat: "almari", type: "Sliding", i: "https://images.unsplash.com/photo-1595428774223-ef52624120d2?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" },
+            { id: 16, t: "Dipan Jati King", cat: "dipan", type: "No.1", i: "https://images.unsplash.com/photo-1505693416388-c03dc37c2658?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" },
+            { id: 17, t: "Kitchen Set HPL", cat: "kitchen", type: "Custom", i: "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" }
         ];
 
-        // --- INIT GRID ---
-        function initGrid() {
-            const grid = document.getElementById('packageGrid');
+        // --- FILTER GALLERY ---
+        function filterGallery(category) {
+            const grid = document.getElementById('galleryGrid');
+            const btns = document.querySelectorAll('.cat-btn');
+            
+            // Update Active Button
+            btns.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active'); // event.target mengacu pada tombol yang diklik
+
             grid.innerHTML = '';
-            packages.forEach((pkg, index) => {
+            
+            const filtered = category === 'all' ? allProducts : allProducts.filter(p => p.cat === category);
+            
+            filtered.forEach(item => {
                 grid.innerHTML += `
-                    <div class="menu-card" onclick="openDetail(${index})">
-                        <img src="${pkg.i}" alt="${pkg.t}">
-                        <div class="menu-card-body">
-                            <h4>${pkg.t}</h4>
-                            <small>${pkg.c}</small>
+                    <div class="prod-card" onclick="openDetailProduct(${item.id})">
+                        <img src="${item.i}" alt="${item.t}">
+                        <div class="prod-card-body">
+                            <h4>${item.t}</h4>
+                            <span>${item.type}</span>
                         </div>
-                        <div class="menu-overlay">
-                            <i class="fas fa-search-plus"></i>
-                        </div>
+                        <div class="prod-overlay"><i class="fas fa-eye"></i></div>
                     </div>
                 `;
             });
         }
-        window.addEventListener('DOMContentLoaded', initGrid);
 
-        // --- LOGIKA MODAL DETAIL ---
-        function openDetail(index) {
-            const pkg = packages[index];
-            document.getElementById('detailImg').src = pkg.i;
-            document.getElementById('detailTitle').innerText = pkg.t;
-            document.getElementById('detailDesc').innerText = "Paket " + pkg.t + " dengan kualitas terbaik.";
-            const list = document.getElementById('detailList');
-            list.innerHTML = '';
-            pkg.items.forEach(item => { list.innerHTML += `<li><i class="fas fa-check-circle"></i> ${item}</li>`; });
-            document.getElementById('detailModal').classList.add('active');
-        }
-        function closeDetail() { document.getElementById('detailModal').classList.remove('active'); }
+        // Init Gallery Default
+        window.addEventListener('DOMContentLoaded', () => {
+            const defaultBtn = document.querySelector('.cat-btn.active');
+            // Manual trigger untuk load 'all' di awal tanpa event click
+            const grid = document.getElementById('galleryGrid');
+            allProducts.forEach(item => {
+                grid.innerHTML += `
+                    <div class="prod-card" onclick="openDetailProduct(${item.id})">
+                        <img src="${item.i}" alt="${item.t}">
+                        <div class="prod-card-body">
+                            <h4>${item.t}</h4>
+                            <span>${item.type}</span>
+                        </div>
+                        <div class="prod-overlay"><i class="fas fa-eye"></i></div>
+                    </div>
+                `;
+            });
+            initCarousel();
+        });
 
-        // --- CAROUSEL LOGIKA ---
+        // --- CAROUSEL LOGIC ---
         const carouselProducts = [
             { t: "Sofa Minimalis", d: "Elegan & Nyaman", i: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
             { t: "Kursi Velvet", d: "Mewah & Lembut", i: "https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
-            { t: "Lemari Jati", d: "Ukiran Asli", i: "https://images.unsplash.com/photo-1595428774223-ef52624120d2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" }
+            { t: "Lemari Jati", d: "Ukiran Asli Jepara", i: "https://images.unsplash.com/photo-1595428774223-ef52624120d2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+            { t: "Meja Makan Sultan", d: "Kayu Solid Premium", i: "https://images.unsplash.com/photo-1617806118233-18e1de247200?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+            { t: "Bed Set Klasik", d: "Tidur Nyenyak & Mewah", i: "https://images.unsplash.com/photo-1505693416388-c03dc37c2658?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" }
         ];
         let cIndex = 0;
-        
         function initCarousel() {
             const stage = document.getElementById('carouselStage');
+            if (stage.children.length > 0) { initSwipe(stage); attachCarouselClicks(); return; }
             stage.innerHTML = '';
             carouselProducts.forEach((prod, i) => {
                 const item = document.createElement('div');
                 item.className = 'c-item';
                 item.innerHTML = `<img src="${prod.i}"><div class="c-info"><h3>${prod.t}</h3><p>${prod.d}</p></div>`;
-                item.onclick = () => { if (item.classList.contains('prev')) { prevCarousel(); } else if (item.classList.contains('next')) { nextCarousel(); } };
                 stage.appendChild(item);
             });
             updateCarouselClasses();
             initSwipe(stage);
+            attachCarouselClicks();
         }
-
+        function attachCarouselClicks() { document.querySelectorAll('.c-item').forEach((item, i) => { item.onclick = (e) => { cIndex = i; updateCarouselClasses(); }; }); }
         function updateCarouselClasses() {
-            const items = document.querySelectorAll('.c-item');
+            const items = document.querySelectorAll('.c-item'); const total = items.length;
             items.forEach((item, i) => {
                 item.className = 'c-item';
-                let prevIdx = (cIndex - 1 + carouselProducts.length) % carouselProducts.length;
-                let nextIdx = (cIndex + 1) % carouselProducts.length;
-                if (i === cIndex) item.classList.add('active');
-                else if (i === prevIdx) item.classList.add('prev');
-                else if (i === nextIdx) item.classList.add('next');
-                else item.classList.add('hidden');
+                let prevIdx = (cIndex - 1 + total) % total; let nextIdx = (cIndex + 1) % total;
+                let prev2Idx = (cIndex - 2 + total) % total; let next2Idx = (cIndex + 2) % total;
+                if (i === cIndex) item.classList.add('active'); else if (i === prevIdx) item.classList.add('prev'); else if (i === nextIdx) item.classList.add('next');
+                else if (i === prev2Idx) item.classList.add('prev-2'); else if (i === next2Idx) item.classList.add('next-2'); else item.classList.add('hidden');
             });
         }
         function nextCarousel() { cIndex = (cIndex + 1) % carouselProducts.length; updateCarouselClasses(); }
         function prevCarousel() { cIndex = (cIndex - 1 + carouselProducts.length) % carouselProducts.length; updateCarouselClasses(); }
-        
         function initSwipe(element) {
             let startX = 0; let isDragging = false;
             element.addEventListener('mousedown', (e) => { isDragging = true; startX = e.clientX; });
@@ -503,19 +571,36 @@
             element.addEventListener('touchend', (e) => { if (!isDragging) return; handleSwipe(e.changedTouches[0].clientX); isDragging = false; });
             function handleSwipe(endX) { if (startX - endX > 50) nextCarousel(); else if (endX - startX > 50) prevCarousel(); }
         }
-        window.addEventListener('DOMContentLoaded', initCarousel);
 
-        // --- NAVIGATION & SEARCH ---
-        let currentSection = 0;
-        const wrapper = document.getElementById('mainWrapper');
-        const sideDots = document.querySelectorAll('.dot');
-        const totalSections = 5;
+        // --- NAVIGATION LOGIC ---
+        let currentSection = 0; const totalSections = 5;
+        document.addEventListener('keydown', (e) => {
+            if (document.activeElement.tagName === 'INPUT') return;
+            if (e.key === 'ArrowDown') { if (!isScrolling && currentSection < totalSections - 1) { goToSection(currentSection + 1); lockScroll(); } } 
+            else if (e.key === 'ArrowUp') { if (!isScrolling && currentSection > 0) { goToSection(currentSection - 1); lockScroll(); } }
+            if (currentSection === 1) { if (e.key === 'ArrowLeft') prevCarousel(); else if (e.key === 'ArrowRight') nextCarousel(); }
+        });
+        let touchStartY = 0; let touchStartX = 0;
+        document.addEventListener('touchstart', (e) => { touchStartY = e.changedTouches[0].screenY; touchStartX = e.changedTouches[0].screenX; }, { passive: true });
+        document.addEventListener('touchend', (e) => {
+            const diffY = touchStartY - e.changedTouches[0].screenY; const diffX = touchStartX - e.changedTouches[0].screenX;
+            if (Math.abs(diffY) > Math.abs(diffX)) {
+                const scrollableEl = e.target.closest('.product-grid, .ai-chat-area, .horizontal-scroll-container, .category-nav');
+                if (scrollableEl) {
+                    if (scrollableEl.scrollHeight > scrollableEl.clientHeight) {
+                        const isAtBottom = Math.ceil(scrollableEl.scrollTop + scrollableEl.clientHeight) >= scrollableEl.scrollHeight;
+                        const isAtTop = scrollableEl.scrollTop <= 0;
+                        if (diffY > 50 && !isAtBottom) return; if (diffY < -50 && !isAtTop) return;
+                    }
+                }
+                if (diffY > 50 && currentSection < totalSections - 1) goToSection(currentSection + 1);
+                else if (diffY < -50 && currentSection > 0) goToSection(currentSection - 1);
+            }
+        });
         function goToSection(index) {
             currentSection = index;
-            wrapper.style.transform = `translateY(-${index * 100}vh)`;
-            document.querySelector('.nav-item.active-page')?.classList.remove('active-page');
-            if (index === 0) document.querySelector('.nav-item[data-label="Home"]').classList.add('active-page');
-            sideDots.forEach((dot, i) => { if(i === index) dot.classList.add('active'); else dot.classList.remove('active'); });
+            document.getElementById('mainWrapper').style.transform = `translateY(-${index * 100}vh)`;
+            document.querySelectorAll('.dot').forEach((dot, i) => { if(i === index) dot.classList.add('active'); else dot.classList.remove('active'); });
         }
         let isScrolling = false;
         window.addEventListener('wheel', (e) => {
@@ -524,20 +609,37 @@
             else if (e.deltaY < 0 && currentSection > 0) { goToSection(currentSection - 1); lockScroll(); }
         });
         function lockScroll() { isScrolling = true; setTimeout(() => { isScrolling = false; }, 800); }
-        
+
+        // --- POPUPS & AI ---
+        function openDetailProduct(id) {
+            const item = allProducts.find(p => p.id === id);
+            document.getElementById('detailImg').src = item.i;
+            document.getElementById('detailTitle').innerText = item.t;
+            document.getElementById('detailCat').innerText = "Kategori: " + item.cat.toUpperCase();
+            document.getElementById('detailDesc').innerText = "Produk " + item.t + " (" + item.type + ") dengan kualitas terbaik kayu jati Jepara. Finishing halus dan konstruksi kokoh.";
+            document.getElementById('detailModal').classList.add('active');
+        }
+        function closeDetail() { document.getElementById('detailModal').classList.remove('active'); }
         function openSearch() { document.getElementById('searchModal').classList.add('active'); }
         function closeSearch() { document.getElementById('searchModal').classList.remove('active'); }
-        function performSearch() {
-            const query = document.getElementById('searchInput').value.toLowerCase();
-            if (query.includes("paket") || query.includes("set")) goToSection(2);
-            else if (query !== "") goToSection(3);
-            closeSearch();
+        
+        // AI Logic & Knowledge Base (Same as before)
+        const knowledgeBase = { trees: { "jati": "Kuat & Tahan Rayap.", "mahoni": "Halus & Kemerahan." }, furniture: { "sofa": "Rangka Jati & Busa Empuk.", "meja": "Konstruksi Kokoh." }, tips: { "bersih": "Lap basah & keringkan." } };
+        function askAI() {
+            const q = document.getElementById('searchInput').value.toLowerCase();
+            const resBox = document.getElementById('aiResultArea');
+            if(q.trim() === "") return;
+            resBox.innerHTML = `<div class="ai-msg"><i class="fas fa-spinner fa-spin"></i><div class="ai-text">Mengetik...</div></div>`;
+            setTimeout(() => {
+                let resp = "Maaf, saya kurang paham. Coba tanya tentang 'Jati' atau 'Sofa'.";
+                if(q.includes("jati")) resp = knowledgeBase.trees.jati;
+                else if(q.includes("sofa")) resp = knowledgeBase.furniture.sofa;
+                else if(q.includes("bersih")) resp = knowledgeBase.tips.bersih;
+                resBox.innerHTML = `<div class="ai-msg"><i class="fas fa-robot"></i><div class="ai-text">${resp}</div></div>`;
+            }, 800);
         }
-        function toggleTheme() {
-            const body = document.body; const btnIcon = document.querySelector('#theme-toggle i');
-            if (body.getAttribute('data-theme') === 'dark') { body.removeAttribute('data-theme'); btnIcon.className = 'fas fa-moon'; }
-            else { body.setAttribute('data-theme', 'dark'); btnIcon.className = 'fas fa-sun'; }
-        }
+        function handleEnter(e) { if(e.key==='Enter') askAI(); }
+        function toggleTheme() { const b=document.body; const i=document.querySelector('#theme-toggle i'); if(b.getAttribute('data-theme')==='dark'){b.removeAttribute('data-theme');i.className='fas fa-moon';}else{b.setAttribute('data-theme','dark');i.className='fas fa-sun';} }
     </script>
 </body>
 </html>
